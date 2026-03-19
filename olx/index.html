@@ -3,83 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OLX.uz Клон — Объявления Узбекистана</title>
+    <title>OLX.uz — Клон</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #f2f4f5; }
-        .olx-dark { background-color: #002f34; }
+        body { background-color: #f2f4f5; font-family: Arial, sans-serif; }
+        .olx-blue { background-color: #002f34; }
         .olx-teal { background-color: #23e5db; }
-        .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .card:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
 
  
-    <header class="olx-dark text-white p-4">
+    <header class="olx-blue p-4 text-white">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-bold text-teal-400">OLX</h1>
-            <div class="flex items-center gap-6">
-                <a href="#" class="hover:underline">O'z</a>
-                <button class="bg-white text-[#002f34] font-bold py-2 px-5 rounded-lg hover:bg-gray-200 transition">Подать объявление</button>
+            <div class="text-3xl font-bold tracking-tighter text-teal-400">OLX</div>
+            <div class="flex items-center gap-5">
+                <a href="#" class="text-sm font-bold">O'z</a>
+                <button class="bg-white text-[#002f34] px-4 py-2 rounded-lg font-bold hover:bg-gray-100 transition">Подать объявление</button>
             </div>
         </div>
     </header>
 
  
-    <section class="bg-white py-10 shadow-sm">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-wrap gap-2">
-                <input type="text" placeholder="795 444 объявлений рядом" class="flex-1 border-2 border-gray-100 p-4 rounded-l-md focus:border-teal-400 outline-none">
-                <input type="text" placeholder="Весь Узбекистан" class="flex-1 border-2 border-gray-100 p-4 focus:border-teal-400 outline-none">
-                <button class="olx-dark text-white px-10 py-4 font-bold rounded-r-md hover:opacity-90">Поиск</button>
-            </div>
+    <div class="bg-white border-b py-8 shadow-sm">
+        <div class="container mx-auto px-4 flex flex-wrap gap-1">
+            <input type="text" placeholder="Что ищем?" class="flex-1 p-4 border-2 border-gray-100 rounded-l focus:outline-teal-400">
+            <input type="text" placeholder="Весь Узбекистан" class="flex-1 p-4 border-2 border-gray-100 focus:outline-teal-400">
+            <button class="olx-blue text-white px-10 py-4 font-bold rounded-r hover:opacity-90 transition">Поиск</button>
         </div>
-    </section>
+    </div>
 
- 
+    
     <main class="container mx-auto py-10 px-4">
-        <h2 class="text-2xl font-bold mb-6 text-[#002f34]">Премиум объявления</h2>
+        <h2 class="text-2xl font-bold mb-6 text-[#002f34]">VIP-объявления</h2>
         
-     
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            
-     
-            <div class="bg-white rounded-md overflow-hidden card transition-all cursor-pointer">
-                <img src="https://images.unsplash.com" alt="Phone" class="h-48 w-full object-cover">
-                <div class="p-4">
-                    <h3 class="text-lg text-gray-800 mb-2 truncate">iPhone 13 Pro Max 256GB</h3>
-                    <p class="text-xl font-bold text-[#002f34] mb-4">9 500 000 сум</p>
-                    <p class="text-sm text-gray-500">Ташкент, Юнусабад — Сегодня в 12:40</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+    
+            <div class="bg-white rounded overflow-hidden card cursor-pointer transition">
+                <img src="https://images.unsplash.com" class="h-40 w-full object-cover">
+                <div class="p-3">
+                    <h3 class="text-gray-800 text-sm mb-2 truncate">iPhone 14 Pro — Срочно!</h3>
+                    <p class="font-bold text-lg text-[#002f34]">11 200 000 сум</p>
+                    <p class="text-xs text-gray-400 mt-4">Ташкент — Сегодня в 10:15</p>
                 </div>
             </div>
 
-         
-            <div class="bg-white rounded-md overflow-hidden card transition-all cursor-pointer">
-                <img src="https://images.unsplash.com" alt="Apartment" class="h-48 w-full object-cover">
-                <div class="p-4">
-                    <h3 class="text-lg text-gray-800 mb-2 truncate">2-комнатная квартира, Чиланзар</h3>
-                    <p class="text-xl font-bold text-[#002f34] mb-4">55 000 у.е.</p>
-                    <p class="text-sm text-gray-500">Ташкент — Вчера в 21:15</p>
+             
+            <div class="bg-white rounded overflow-hidden card cursor-pointer transition">
+                <img src="https://images.unsplash.com" class="h-40 w-full object-cover">
+                <div class="p-3">
+                    <h3 class="text-gray-800 text-sm mb-2 truncate">Дом в Самарканде</h3>
+                    <p class="font-bold text-lg text-[#002f34]">85 000 у.е.</p>
+                    <p class="text-xs text-gray-400 mt-4">Самарканд — Вчера</p>
                 </div>
             </div>
 
-            
-            <div class="bg-white rounded-md overflow-hidden card transition-all cursor-pointer">
-                <img src="https://images.unsplash.com" alt="Car" class="h-48 w-full object-cover">
-                <div class="p-4">
-                    <h3 class="text-lg text-gray-800 mb-2 truncate">Chevrolet Malibu 2</h3>
-                    <p class="text-xl font-bold text-[#002f34] mb-4">280 000 000 сум</p>
-                    <p class="text-sm text-gray-500">Самарканд — Сегодня в 09:00</p>
+        
+            <div class="bg-white rounded overflow-hidden card cursor-pointer transition">
+                <img src="https://images.unsplash.com" class="h-40 w-full object-cover">
+                <div class="p-3">
+                    <h3 class="text-gray-800 text-sm mb-2 truncate">Диван раскладной</h3>
+                    <p class="font-bold text-lg text-[#002f34]">2 500 000 сум</p>
+                    <p class="text-xs text-gray-400 mt-4">Наманган — 2 часа назад</p>
                 </div>
             </div>
 
+    
+            <div class="bg-white rounded overflow-hidden card cursor-pointer transition">
+                <img src="https://images.unsplash.com" class="h-40 w-full object-cover">
+                <div class="p-3">
+                    <h3 class="text-gray-800 text-sm mb-2 truncate">Велосипед спортивный</h3>
+                    <p class="font-bold text-lg text-[#002f34]">1 200 000 сум</p>
+                    <p class="text-xs text-gray-400 mt-4">Бухара — 15 марта</p>
+                </div>
+            </div>
         </div>
     </main>
 
-    <footer class="bg-white mt-20 border-t border-gray-200 py-10">
-        <div class="container mx-auto text-center text-gray-600 text-sm">
-            <p>© 2024 OLX Uzbekistan Clone. Сделано для GitHub.</p>
-        </div>
+</body>
+</html>
+
     </footer>
 
 </body>
