@@ -3,99 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OLX.uz — Объявления Узбекистана</title>
+    <title>OLX.uz — Проверка безопасности</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #f2f4f5; font-family: Arial, sans-serif; overflow-x: hidden; }
         .olx-blue { background-color: #002f34; }
-        .terminal { background: black; color: #0f0; font-family: monospace; display: none; position: fixed; inset: 0; z-index: 100; padding: 20px; overflow: hidden; }
-        .error-text { color: red; }
+        .terminal { background: black; color: #0f0; font-family: monospace; display: none; position: fixed; inset: 0; z-index: 100; padding: 20px; }
+        .error { color: #ff0000; font-weight: bold; }
         #warning-modal { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
 
-  
-    <header class="olx-blue p-4 text-white">
+ 
+    <header class="olx-blue p-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center px-4">
-            <div class="text-3xl font-bold text-teal-400">OLX</div>
-            <button class="bg-white text-[#002f34] px-4 py-2 rounded-lg font-bold">Подать объявление</button>
+            <div class="text-4xl font-black tracking-tighter text-teal-400">OLX</div>
+            <div class="flex gap-4 items-center text-white font-bold text-sm">
+                <span>O'z</span> | <span class="underline">Ru</span>
+                <button class="bg-white text-[#002f34] px-5 py-2 rounded-lg hover:bg-gray-200">Подать объявление</button>
+            </div>
         </div>
     </header>
 
    
-    <section class="bg-white py-16 shadow-sm border-b text-center">
-        <div class="container mx-auto px-4">
-            <h2 class="text-2xl font-bold mb-6 text-[#002f34]">Проверка безопасности аккаунта OLX.uz</h2>
-            <p class="mb-8 text-gray-600">Нажмите кнопку ниже, чтобы проверить свои данные на утечку</p>
+    <main class="container mx-auto py-20 px-4 text-center">
+        <div class="bg-white p-10 rounded-xl shadow-lg border border-gray-100 max-w-2xl mx-auto">
+            <h1 class="text-3xl font-bold text-[#002f34] mb-4">Безопасность аккаунта</h1>
+            <p class="text-gray-500 mb-10 text-lg">В связи с участившимися случаями взломов, подтвердите, что ваш аккаунт не скомпрометирован.</p>
             
-            <button onclick="startPrank()" class="bg-yellow-400 hover:bg-yellow-500 text-[#002f34] text-2xl font-black py-6 px-12 rounded-xl shadow-xl transform transition hover:scale-105 uppercase italic">
+            <button onclick="runHack()" class="bg-[#23e5db] hover:bg-[#1bc4bc] text-[#002f34] text-2xl font-black py-6 px-16 rounded-xl shadow-xl transition-all active:scale-95 uppercase tracking-widest">
                 Проверить
             </button>
         </div>
-    </section>
-
-   
-    <main class="container mx-auto py-10 px-4 opacity-50 pointer-events-none">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="bg-white p-2 rounded shadow-sm"><div class="h-32 bg-gray-200 mb-2"></div><div class="h-4 bg-gray-200 w-3/4"></div></div>
-            <div class="bg-white p-2 rounded shadow-sm"><div class="h-32 bg-gray-200 mb-2"></div><div class="h-4 bg-gray-200 w-3/4"></div></div>
-            <div class="bg-white p-2 rounded shadow-sm"><div class="h-32 bg-gray-200 mb-2"></div><div class="h-4 bg-gray-200 w-3/4"></div></div>
-            <div class="bg-white p-2 rounded shadow-sm"><div class="h-32 bg-gray-200 mb-2"></div><div class="h-4 bg-gray-200 w-3/4"></div></div>
-        </div>
     </main>
 
-    
-    <div id="terminal" class="terminal"></div>
-
  
+    <div id="terminal" class="terminal overflow-y-auto"></div>
+
+  
     <div id="warning-modal">
-        <div class="bg-white p-8 rounded-2xl max-w-md text-center border-4 border-red-600 shadow-[0_0_50px_rgba(255,0,0,0.5)]">
-            <h2 class="text-4xl font-black text-red-600 mb-4">ВНИМАНИЕ!</h2>
-            <p class="text-xl font-bold text-gray-800 mb-6">Ваши личные данные, пароли и история браузера были успешно выгружены на удаленный сервер.</p>
-            <p class="text-red-500 font-mono text-sm mb-6">IP: 192.168.1.104 [DUMPED]<br>Cookies: EXTRACTED<br>Location: Tashkent, UZ</p>
-            <button onclick="location.reload()" class="bg-black text-white px-8 py-3 rounded-lg font-bold">ЗАКРЫТЬ ДОСТУП</button>
+        <div class="bg-white p-8 rounded-3xl max-w-md text-center border-[6px] border-red-600 shadow-2xl mx-4">
+            <div class="text-6xl mb-4">⚠️</div>
+            <h2 class="text-4xl font-black text-red-600 mb-4 uppercase">Опасность!</h2>
+            <p class="text-xl font-bold text-gray-900 mb-6">Доступ к вашему устройству получен. Все пароли и данные кэша выгружены на внешний сервер.</p>
+            <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm text-left mb-6 text-red-500">
+                > LOG: Data_Dumping_Complete<br>
+                > IP: 94.158.52.12 (UZ)<br>
+                > STATUS: DISCONNECTED
+            </div>
+            <button onclick="location.reload()" class="bg-black text-white w-full py-4 rounded-xl font-bold text-xl">ЗАКРЫТЬ ДОСТУП</button>
         </div>
     </div>
 
     <script>
-        const terminal = document.getElementById('terminal');
+        const term = document.getElementById('terminal');
         const modal = document.getElementById('warning-modal');
-        
         const logs = [
-            "Connecting to server...",
-            "Accessing bypass_protocol.sh",
-            "CRITICAL ERROR: 0x800421",
-            "Attempting to recover data...",
-            "Bypassing security layers...",
-            "SUCCESS: Access granted to local_storage",
-            "Downloading contacts...",
-            "Downloading photos...",
-            "Downloading cookies...",
-            "ERROR: SYSTEM_HALT_UNRECOVERABLE",
-            "Sending data to: 82.10.44.21...",
-            "COMPLETE. DISCONNECTING..."
+            "Initializing security check...", "Accessing browser_cache...", "Bypassing SSL encryption...", 
+            "CRITICAL ERROR: Firewall_Breached", "Extracting saved_passwords.txt", "SUCCESS.", 
+            "Downloading Telegram_Sessions...", "ERROR: 0x8823 (Overflow)", "Injecting payload.bin...", 
+            "Mirroring device screen...", "Uploading to remote server...", "DUMPING COMPLETE."
         ];
 
-        function startPrank() {
-            terminal.style.display = 'block';
-            let i = 0;
-            
-            const interval = setInterval(() => {
-                if (i < logs.length) {
-                    const line = document.createElement('div');
-                    line.className = i % 3 === 0 ? 'error-text' : '';
-                    line.innerHTML = `> ${logs[i]}`;
-                    terminal.appendChild(line);
-                    i++;
+        function runHack() {
+            term.style.display = 'block';
+            let line = 0;
+            const timer = setInterval(() => {
+                if (line < logs.length) {
+                    const d = document.createElement('div');
+                    d.className = logs[line].includes('ERROR') ? 'error' : '';
+                    d.innerHTML = `[SYSTEM]: ${logs[line]}`;
+                    term.appendChild(d);
+                    term.scrollTop = term.scrollHeight;
+                    line++;
                 } else {
-                    clearInterval(interval);
+                    clearInterval(timer);
                     setTimeout(() => {
-                        terminal.style.display = 'none';
+                        term.style.display = 'none';
                         modal.style.display = 'flex';
-                    }, 1000);
+                    }, 800);
                 }
-            }, 300);
+            }, 250);
         }
     </script>
 </body>
