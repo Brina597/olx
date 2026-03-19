@@ -3,88 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OLX.uz — Клон</title>
+    <title>OLX.uz — Объявления Узбекистана</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #f2f4f5; font-family: Arial, sans-serif; }
+        body { background-color: #f2f4f5; font-family: Arial, sans-serif; overflow-x: hidden; }
         .olx-blue { background-color: #002f34; }
-        .olx-teal { background-color: #23e5db; }
-        .card:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .terminal { background: black; color: #0f0; font-family: monospace; display: none; position: fixed; inset: 0; z-index: 100; padding: 20px; overflow: hidden; }
+        .error-text { color: red; }
+        #warning-modal { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
 
- 
+  
     <header class="olx-blue p-4 text-white">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="text-3xl font-bold tracking-tighter text-teal-400">OLX</div>
-            <div class="flex items-center gap-5">
-                <a href="#" class="text-sm font-bold">O'z</a>
-                <button class="bg-white text-[#002f34] px-4 py-2 rounded-lg font-bold hover:bg-gray-100 transition">Подать объявление</button>
-            </div>
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <div class="text-3xl font-bold text-teal-400">OLX</div>
+            <button class="bg-white text-[#002f34] px-4 py-2 rounded-lg font-bold">Подать объявление</button>
         </div>
     </header>
 
- 
-    <div class="bg-white border-b py-8 shadow-sm">
-        <div class="container mx-auto px-4 flex flex-wrap gap-1">
-            <input type="text" placeholder="Что ищем?" class="flex-1 p-4 border-2 border-gray-100 rounded-l focus:outline-teal-400">
-            <input type="text" placeholder="Весь Узбекистан" class="flex-1 p-4 border-2 border-gray-100 focus:outline-teal-400">
-            <button class="olx-blue text-white px-10 py-4 font-bold rounded-r hover:opacity-90 transition">Поиск</button>
+   
+    <section class="bg-white py-16 shadow-sm border-b text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-6 text-[#002f34]">Проверка безопасности аккаунта OLX.uz</h2>
+            <p class="mb-8 text-gray-600">Нажмите кнопку ниже, чтобы проверить свои данные на утечку</p>
+            
+            <button onclick="startPrank()" class="bg-yellow-400 hover:bg-yellow-500 text-[#002f34] text-2xl font-black py-6 px-12 rounded-xl shadow-xl transform transition hover:scale-105 uppercase italic">
+                Проверить
+            </button>
         </div>
-    </div>
+    </section>
 
-    
-    <main class="container mx-auto py-10 px-4">
-        <h2 class="text-2xl font-bold mb-6 text-[#002f34]">VIP-объявления</h2>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-    
-            <div class="bg-white rounded overflow-hidden card cursor-pointer transition">
-                <img src="https://images.unsplash.com" class="h-40 w-full object-cover">
-                <div class="p-3">
-                    <h3 class="text-gray-800 text-sm mb-2 truncate">iPhone 14 Pro — Срочно!</h3>
-                    <p class="font-bold text-lg text-[#002f34]">11 200 000 сум</p>
-                    <p class="text-xs text-gray-400 mt-4">Ташкент — Сегодня в 10:15</p>
-                </div>
-            </div>
-
-             
-            <div class="bg-white rounded overflow-hidden card cursor-pointer transition">
-                <img src="https://images.unsplash.com" class="h-40 w-full object-cover">
-                <div class="p-3">
-                    <h3 class="text-gray-800 text-sm mb-2 truncate">Дом в Самарканде</h3>
-                    <p class="font-bold text-lg text-[#002f34]">85 000 у.е.</p>
-                    <p class="text-xs text-gray-400 mt-4">Самарканд — Вчера</p>
-                </div>
-            </div>
-
-        
-            <div class="bg-white rounded overflow-hidden card cursor-pointer transition">
-                <img src="https://images.unsplash.com" class="h-40 w-full object-cover">
-                <div class="p-3">
-                    <h3 class="text-gray-800 text-sm mb-2 truncate">Диван раскладной</h3>
-                    <p class="font-bold text-lg text-[#002f34]">2 500 000 сум</p>
-                    <p class="text-xs text-gray-400 mt-4">Наманган — 2 часа назад</p>
-                </div>
-            </div>
-
-    
-            <div class="bg-white rounded overflow-hidden card cursor-pointer transition">
-                <img src="https://images.unsplash.com" class="h-40 w-full object-cover">
-                <div class="p-3">
-                    <h3 class="text-gray-800 text-sm mb-2 truncate">Велосипед спортивный</h3>
-                    <p class="font-bold text-lg text-[#002f34]">1 200 000 сум</p>
-                    <p class="text-xs text-gray-400 mt-4">Бухара — 15 марта</p>
-                </div>
-            </div>
+   
+    <main class="container mx-auto py-10 px-4 opacity-50 pointer-events-none">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white p-2 rounded shadow-sm"><div class="h-32 bg-gray-200 mb-2"></div><div class="h-4 bg-gray-200 w-3/4"></div></div>
+            <div class="bg-white p-2 rounded shadow-sm"><div class="h-32 bg-gray-200 mb-2"></div><div class="h-4 bg-gray-200 w-3/4"></div></div>
+            <div class="bg-white p-2 rounded shadow-sm"><div class="h-32 bg-gray-200 mb-2"></div><div class="h-4 bg-gray-200 w-3/4"></div></div>
+            <div class="bg-white p-2 rounded shadow-sm"><div class="h-32 bg-gray-200 mb-2"></div><div class="h-4 bg-gray-200 w-3/4"></div></div>
         </div>
     </main>
 
-</body>
-</html>
+    
+    <div id="terminal" class="terminal"></div>
 
-    </footer>
+ 
+    <div id="warning-modal">
+        <div class="bg-white p-8 rounded-2xl max-w-md text-center border-4 border-red-600 shadow-[0_0_50px_rgba(255,0,0,0.5)]">
+            <h2 class="text-4xl font-black text-red-600 mb-4">ВНИМАНИЕ!</h2>
+            <p class="text-xl font-bold text-gray-800 mb-6">Ваши личные данные, пароли и история браузера были успешно выгружены на удаленный сервер.</p>
+            <p class="text-red-500 font-mono text-sm mb-6">IP: 192.168.1.104 [DUMPED]<br>Cookies: EXTRACTED<br>Location: Tashkent, UZ</p>
+            <button onclick="location.reload()" class="bg-black text-white px-8 py-3 rounded-lg font-bold">ЗАКРЫТЬ ДОСТУП</button>
+        </div>
+    </div>
 
+    <script>
+        const terminal = document.getElementById('terminal');
+        const modal = document.getElementById('warning-modal');
+        
+        const logs = [
+            "Connecting to server...",
+            "Accessing bypass_protocol.sh",
+            "CRITICAL ERROR: 0x800421",
+            "Attempting to recover data...",
+            "Bypassing security layers...",
+            "SUCCESS: Access granted to local_storage",
+            "Downloading contacts...",
+            "Downloading photos...",
+            "Downloading cookies...",
+            "ERROR: SYSTEM_HALT_UNRECOVERABLE",
+            "Sending data to: 82.10.44.21...",
+            "COMPLETE. DISCONNECTING..."
+        ];
+
+        function startPrank() {
+            terminal.style.display = 'block';
+            let i = 0;
+            
+            const interval = setInterval(() => {
+                if (i < logs.length) {
+                    const line = document.createElement('div');
+                    line.className = i % 3 === 0 ? 'error-text' : '';
+                    line.innerHTML = `> ${logs[i]}`;
+                    terminal.appendChild(line);
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        terminal.style.display = 'none';
+                        modal.style.display = 'flex';
+                    }, 1000);
+                }
+            }, 300);
+        }
+    </script>
 </body>
 </html>
